@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -89,32 +91,31 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun AdNetworkApp() {
-    val deviceCurrentWidthDp = LocalConfiguration.current.screenWidthDp
-    val deviceCurrentDp = LocalConfiguration.current.densityDpi
-    val deviceCurrentWidth = (deviceCurrentWidthDp / deviceCurrentDp).toInt()
+    val deviceWidth = LocalConfiguration.current.screenWidthDp.toInt()
+    val adWidth = deviceWidth - 32
 
     val context = LocalContext.current
     val interstitial_ad_id = stringResource(id = R.string.ad_id_interstitial)
 
     //val interestitialAd: InterstitialAd? = null
 
+
     Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier
             .padding(16.dp)
-            .fillMaxWidth(),
-        horizontalAlignment = Alignment.CenterHorizontally
+            .fillMaxWidth()
+            .verticalScroll(rememberScrollState())
     ) {
-        Text("Adaptive Banner")
+        Text("Adaptive Banner", modifier = Modifier.padding(bottom = 16.dp))
 
-        // TODO: Check success with callback + Ad ID
         // shows an Adaptive banner test ad
         AndroidView(
             factory = { context ->
                 AdView(context).apply {
                     adSize = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
                         context,
-                        deviceCurrentWidth
-//                        300
+                        adWidth
                     )
                     adUnitId = context.getString(R.string.ad_id_banner)
                     loadAd(AdRequest.Builder().build())
@@ -124,15 +125,13 @@ fun AdNetworkApp() {
 
         Text("Inline Adaptive Banner", modifier = Modifier.padding(16.dp))
 
-        // TODO: Check success with callback + Ad ID
         // shows an Inline Adaptive banner test ad - Not Working
         AndroidView(
             factory = { context ->
                 AdView(context).apply {
                     adSize = AdSize.getCurrentOrientationInlineAdaptiveBannerAdSize(
                         context,
-//                        deviceCurrentWidth
-                        300
+                        adWidth
                     )
                     adUnitId = context.getString(R.string.ad_id_banner)
                     loadAd(AdRequest.Builder().build())
@@ -156,7 +155,7 @@ fun AdNetworkApp() {
         // Interstitial ad on button click - Working
         // (showing success on log, but not displaying the ad
         Button(
-            onClick = {  },
+            onClick = { },
             modifier = Modifier.padding(16.dp)
         ) {
             Text(text = "Show Interstitial")
