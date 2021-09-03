@@ -20,6 +20,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import com.example.adnetwork.ui.theme.AdNetworkTheme
 import com.google.android.gms.ads.*
 import com.google.android.gms.ads.interstitial.InterstitialAd
@@ -106,51 +107,51 @@ fun AdNetworkApp() {
         Text("Adaptive Banner")
 
         // TODO: Check success with callback + Ad ID
-        // shows an Adaptive banner test ad - Not Working
-//        AndroidView(
-//            factory = { context ->
-//                AdView(context).apply {
-//                    adSize = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
-//                        context,
-//                        //deviceCurrentWidth
+        // shows an Adaptive banner test ad
+        AndroidView(
+            factory = { context ->
+                AdView(context).apply {
+                    adSize = AdSize.getCurrentOrientationAnchoredAdaptiveBannerAdSize(
+                        context,
+                        deviceCurrentWidth
 //                        300
-//                    )
-//                    adUnitId = context.getString(R.string.ad_id_adaptive_banner)
-//                    loadAd(AdRequest.Builder().build())
-//                }
-//            }
-//        )
+                    )
+                    adUnitId = context.getString(R.string.ad_id_banner)
+                    loadAd(AdRequest.Builder().build())
+                }
+            }
+        )
 
-        Text("Inline Adaptive Banner")
+        Text("Inline Adaptive Banner", modifier = Modifier.padding(16.dp))
 
         // TODO: Check success with callback + Ad ID
         // shows an Inline Adaptive banner test ad - Not Working
-//        AndroidView(
-//            factory = { context ->
-//                AdView(context).apply {
-//                    adSize = AdSize.getCurrentOrientationInlineAdaptiveBannerAdSize(
-//                        context,
-//                        //deviceCurrentWidth
-//                        300
-//                    )
-//                    adUnitId = context.getString(R.string.ad_id_adaptive_banner)
-//                    loadAd(AdRequest.Builder().build())
-//                }
-//            }
-//        )
+        AndroidView(
+            factory = { context ->
+                AdView(context).apply {
+                    adSize = AdSize.getCurrentOrientationInlineAdaptiveBannerAdSize(
+                        context,
+//                        deviceCurrentWidth
+                        300
+                    )
+                    adUnitId = context.getString(R.string.ad_id_banner)
+                    loadAd(AdRequest.Builder().build())
+                }
+            }
+        )
 
         Text("Regular Banner", modifier = Modifier.padding(16.dp))
 
         // shows a banner test ad - Working
-//        AndroidView(
-//            factory = { context ->
-//                AdView(context).apply {
-//                    adSize = AdSize.BANNER
-//                    adUnitId = context.getString(R.string.ad_id_banner)
-//                    loadAd(AdRequest.Builder().build())
-//                }
-//            }
-//        )
+        AndroidView(
+            factory = { context ->
+                AdView(context).apply {
+                    adSize = AdSize.BANNER
+                    adUnitId = context.getString(R.string.ad_id_banner)
+                    loadAd(AdRequest.Builder().build())
+                }
+            }
+        )
 
         // Interstitial ad on button click - Working
         // (showing success on log, but not displaying the ad
