@@ -1,9 +1,12 @@
 package com.example.adnetwork
 
+import android.content.Context
+import android.content.ContextWrapper
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -79,20 +82,31 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        // show the interstitial ad
-        if (mInterstitialAd != null) {
-            mInterstitialAd?.show(this)
-        } else {
-            Log.d("MainActivity", "The interstitial ad wasn't ready yet.")
-        }
-
     }
+}
+
+// show the interstitial ad
+fun showInterstitial(context: Context) {
+    val activity = context.findActivity()
+
+    if (mInterstitialAd != null) {
+        mInterstitialAd?.show(activity)
+    } else {
+        Log.d("MainActivity", "The interstitial ad wasn't ready yet.")
+    }
+}
+
+// find the current activity
+fun Context.findActivity(): AppCompatActivity? = when (this) {
+    is AppCompatActivity -> this
+    is ContextWrapper -> baseContext.findActivity()
+    else -> null
 }
 
 @Composable
 fun AdNetworkApp() {
-    val deviceWidth = LocalConfiguration.current.screenWidthDp.toInt()
-    val adWidth = deviceWidth - 32
+    //val deviceWidth = LocalConfiguration.current.screenWidthDp
+    val adWidth = LocalConfiguration.current.screenWidthDp - 32
 
     val context = LocalContext.current
     val interstitial_ad_id = stringResource(id = R.string.ad_id_interstitial)
@@ -155,7 +169,7 @@ fun AdNetworkApp() {
         // Interstitial ad on button click - Working
         // (showing success on log, but not displaying the ad
         Button(
-            onClick = { },
+            onClick = { showInterstitial(context) },
             modifier = Modifier.padding(16.dp)
         ) {
             Text(text = "Show Interstitial")
