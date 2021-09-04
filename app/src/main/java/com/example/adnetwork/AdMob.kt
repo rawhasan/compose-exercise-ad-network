@@ -48,7 +48,7 @@ fun addInterstitialCallbacks(context: Context) {
         override fun onAdDismissedFullScreenContent() {
             Log.d("MainActivity", "Ad was dismissed.")
 
-            mInterstitialAd = null
+            //mInterstitialAd = null
             loadInterstitial(context)
         }
     }

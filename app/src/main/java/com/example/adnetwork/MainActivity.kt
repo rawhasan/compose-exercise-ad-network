@@ -109,7 +109,10 @@ fun AdNetworkApp() {
 
         // shows an interstitial ad on button click (on the first click only)
         Button(
-            onClick = { showInterstitial(context) },
+            onClick = {
+                loadInterstitial(context)
+                showInterstitial(context)
+            },
             modifier = Modifier.padding(16.dp)
         ) {
             Text(text = "Show Interstitial")
