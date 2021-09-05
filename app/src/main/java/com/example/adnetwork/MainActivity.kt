@@ -1,7 +1,6 @@
 package com.example.adnetwork
 
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -15,7 +14,6 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalConfiguration
@@ -56,12 +54,6 @@ class MainActivity : ComponentActivity() {
 fun AdNetworkApp() {
     val adWidth = LocalConfiguration.current.screenWidthDp - 32
     val context = LocalContext.current
-
-    LaunchedEffect(Unit) {
-        loadInterstitial(context)
-        showInterstitial(context)
-        Log.d("MainActivity", "Interstitial loaded on composable")
-    }
 
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,

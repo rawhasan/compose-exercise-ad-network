@@ -47,9 +47,6 @@ fun addInterstitialCallbacks(context: Context) {
 
         override fun onAdDismissedFullScreenContent() {
             Log.d("MainActivity", "Ad was dismissed.")
-
-            //mInterstitialAd = null
-            loadInterstitial(context)
         }
     }
 }
@@ -59,7 +56,7 @@ fun showInterstitial(context: Context) {
     val activity = context.findActivity()
 
     if (mInterstitialAd != null) {
-        mInterstitialAd?.show(activity)
+        mInterstitialAd?.show(activity!!)
     } else {
         Log.d("MainActivity", "The interstitial ad wasn't ready yet.")
     }
