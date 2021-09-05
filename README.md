@@ -1,4 +1,4 @@
-# Ad Network
+# Copose Excercise: Ad Network
 Exercise project to display AdMob ads on Android apps using Jetpack Compose.
 
 ## Takeaways
