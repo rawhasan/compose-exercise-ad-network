@@ -5,6 +5,7 @@ Exercise project to display AdMob ads on Android apps using Jetpack Compose.
 - Show AdMob traditional banner, adaptive banner, and inline adaptive banner.
 - Show AdMob interstitial ad on button click from a composable.
 - Extension function to get the current activity from any composable.
+- [ ] FIXME: Load interstitial before showing screens.
 
 ## Dependencies
 ```
